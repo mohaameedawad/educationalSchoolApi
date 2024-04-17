@@ -16,6 +16,7 @@ namespace SchoolData.AppMetaData
         {
             public const string List = Root + "List";
             public const string GetById = Root + IdPlaceHolder;
+            public const string CreateStudent = Root + "CreateStudent";
 
         }
 

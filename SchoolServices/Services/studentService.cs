@@ -40,6 +40,17 @@ namespace SchoolServices.Services
 
             return student;
         }
+
+        public async Task<string> AddAsync(Student student)
+        {
+            var studentResult = await _StudentRepository.GetTableNoTracking()
+                                                    .Where(x => x.Name == student.Name)
+                                                    .FirstOrDefaultAsync();
+            if (studentResult != null) return "Sorry Student exits";
+
+            await _StudentRepository.AddAsync(student);
+            return "Success";
+        }
         #endregion
 
     }

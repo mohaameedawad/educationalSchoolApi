@@ -11,7 +11,7 @@ namespace SchoolServices.Interfaces
     {
         public Task<List<Student>> GetStudentsListAsync();
         public Task<Student> GetStudentByIdAsync(int id);
-
+        public Task<string> AddAsync(Student student);
 
     }
 }
