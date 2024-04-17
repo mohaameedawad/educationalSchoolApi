@@ -46,7 +46,7 @@ namespace SchoolApi.Controllers
         {
             var response = await _mediator.Send(student);
 
-            return Ok();
+            return Ok(response);
         }
         #endregion
     }
