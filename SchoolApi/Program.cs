@@ -1,10 +1,9 @@
 
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 using School_Infrastructure;
 using School_Infrastructure.Context;
 using SchoolCore;
+using SchoolCore.Middlewares;
 using SchoolServices;
 
 namespace SchoolApi
@@ -38,6 +37,7 @@ namespace SchoolApi
                 app.UseSwaggerUI();
             }
 
+            app.UseMiddleware<ErrorHandlerMiddleware>();
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
