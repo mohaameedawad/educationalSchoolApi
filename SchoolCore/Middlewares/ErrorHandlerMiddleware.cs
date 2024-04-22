@@ -68,6 +68,7 @@ namespace SchoolCore.Middlewares
                         responseModel.Message = e.Message;
                         responseModel.Message += e.InnerException == null ? "" : "\n" + e.InnerException.Message;
 
+
                         responseModel.StatusCode = HttpStatusCode.InternalServerError;
                         response.StatusCode = (int)HttpStatusCode.InternalServerError;
                         break;
