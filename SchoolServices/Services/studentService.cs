@@ -66,6 +66,32 @@ namespace SchoolServices.Services
             await _StudentRepository.UpdateAsync(student);
             return "Success";
         }
+
+        public async Task<string> DeleteAsync(Student student)
+        {
+            var trans = _StudentRepository.BeginTransaction();
+            try
+            {
+                await _StudentRepository.DeleteAsync(student);
+                await trans.CommitAsync();
+                return "Success";
+            }
+            catch
+            {
+                await trans.RollbackAsync();
+                return "Failed";
+
+            }
+        }
+
+        public async Task<Student> GetByIdWithoutInclude(int id)
+        {
+            var student = await _StudentRepository.GetTableNoTracking()
+                                                  .Where(x => x.StudID == id)
+                                                  .FirstOrDefaultAsync();
+
+            return student;
+        }
         #endregion
 
     }

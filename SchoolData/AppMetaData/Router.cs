@@ -12,6 +12,9 @@
             public const string GetById = Root + IdPlaceHolder;
             public const string CreateStudent = Root + "CreateStudent";
             public const string EditStudent = Root + "EditStudent";
+            public const string DeleteStudent = Root + "{id}";
+
+
 
 
 
