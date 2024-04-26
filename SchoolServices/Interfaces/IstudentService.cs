@@ -1,9 +1,4 @@
 ﻿using SchoolData.Entites;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SchoolServices.Interfaces
 {
@@ -12,6 +7,11 @@ namespace SchoolServices.Interfaces
         public Task<List<Student>> GetStudentsListAsync();
         public Task<Student> GetStudentByIdAsync(int id);
         public Task<string> AddAsync(Student student);
+        public Task<bool> IsNameExist(string name);
+        public Task<bool> IsNameExistExcludeSelf(string name, int Id);
+
+        public Task<string> EditAsync(Student student);
+
 
     }
 }

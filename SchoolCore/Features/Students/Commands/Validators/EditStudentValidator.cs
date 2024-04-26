@@ -4,14 +4,15 @@ using SchoolServices.Interfaces;
 
 namespace SchoolCore.Features.Students.Commands.Validators
 {
-    public class AddStudentValidator : AbstractValidator<AddStudentCommand>
+    public class EditStudentValidator : AbstractValidator<EditStudentCommand>
     {
         #region Properties
         private readonly IstudentService _studentService;
+
         #endregion
 
         #region Constructors
-        public AddStudentValidator(IstudentService studentService)
+        public EditStudentValidator(IstudentService studentService)
         {
             _studentService = studentService;
             ApplyValidationRules();
@@ -36,7 +37,7 @@ namespace SchoolCore.Features.Students.Commands.Validators
         public void ApplyCustomValidationRules()
         {
             RuleFor(x => x.Name)
-                .MustAsync(async (key, CancellationToken) => !await _studentService.IsNameExist(key))
+                .MustAsync(async (model, key, CancellationToken) => !await _studentService.IsNameExistExcludeSelf(key, model.Id))
                 .WithMessage("Name Is Exist");
         }
         #endregion

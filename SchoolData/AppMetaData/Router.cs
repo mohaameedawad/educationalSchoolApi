@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SchoolData.AppMetaData
+﻿namespace SchoolData.AppMetaData
 {
     public static class Router
     {
@@ -17,6 +11,9 @@ namespace SchoolData.AppMetaData
             public const string List = Root + "List";
             public const string GetById = Root + IdPlaceHolder;
             public const string CreateStudent = Root + "CreateStudent";
+            public const string EditStudent = Root + "EditStudent";
+
+
 
         }
 

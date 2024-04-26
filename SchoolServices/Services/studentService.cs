@@ -2,11 +2,6 @@
 using School_Infrastructure.Interfaces;
 using SchoolData.Entites;
 using SchoolServices.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SchoolServices.Services
 {
@@ -16,7 +11,7 @@ namespace SchoolServices.Services
         private readonly IStudentRepository _StudentRepository;
 
         #endregion
-        
+
         #region Constructor
         public studentService(IStudentRepository studentRepository)
         {
@@ -49,6 +44,26 @@ namespace SchoolServices.Services
             if (studentResult != null) return "Sorry Student exits";
 
             await _StudentRepository.AddAsync(student);
+            return "Success";
+        }
+
+        public async Task<bool> IsNameExist(string name)
+        {
+            var student = _StudentRepository.GetTableNoTracking().Where(x => x.Name == name).FirstOrDefault();
+            if (student == null) return false;
+            return true;
+        }
+
+        public async Task<bool> IsNameExistExcludeSelf(string name, int Id)
+        {
+            var student = await _StudentRepository.GetTableNoTracking().Where(x => x.Name == name).FirstOrDefaultAsync();
+            if (student == null) return false;
+            return true;
+        }
+
+        public async Task<string> EditAsync(Student student)
+        {
+            await _StudentRepository.UpdateAsync(student);
             return "Success";
         }
         #endregion

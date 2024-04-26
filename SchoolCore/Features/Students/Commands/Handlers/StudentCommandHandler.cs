@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-
-using Azure;
 using MediatR;
 
 using SchoolCore.Bases;
@@ -10,16 +8,12 @@ using SchoolData.Entites;
 
 using SchoolServices.Interfaces;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace SchoolCore.Features.Students.Commands.Handlers
 {
     public class StudentCommandHandler : ResponseHandler,
-                                        IRequestHandler<AddStudentCommand, SchoolCore.Bases.Response<string>>
+                                        IRequestHandler<AddStudentCommand, SchoolCore.Bases.Response<string>>,
+                                        IRequestHandler<EditStudentCommand, SchoolCore.Bases.Response<string>>
+
     {
         #region Properties
         private readonly IstudentService _studentService;
@@ -41,8 +35,24 @@ namespace SchoolCore.Features.Students.Commands.Handlers
             var student = _mapper.Map<Student>(request);
             var result = await _studentService.AddAsync(student);
 
-            if(result == "Sorry Student exits") return UnProcessableEntity<string>("Sorry Student Exists");
-            else if (result == "Success") return Success<string>("Added Successfully");
+            if (result == "Success") return Success<string>("Added Successfully");
+            else return BadRequest<string>();
+
+
+        }
+
+        public async Task<Response<string>> Handle(EditStudentCommand request, CancellationToken cancellationToken)
+        {
+            var student = await _studentService.GetStudentByIdAsync(request.Id);
+
+            if (student == null) return NotFound<string>("Student Not Found");
+
+            var studentMapper = _mapper.Map<Student>(request);
+
+            var result = await _studentService.EditAsync(studentMapper);
+
+            if (result == "Success") return Success($"Edited Successfully {studentMapper.StudID}");
+
             else return BadRequest<string>();
 
 
