@@ -3,7 +3,9 @@ using MediatR;
 
 using SchoolCore.Bases;
 using SchoolCore.Features.Students.Commands.Models;
-
+using SchoolCore.Features.Students.Queries.Dtos;
+using SchoolCore.Features.Students.Queries.Models;
+using SchoolCore.Wrappers;
 using SchoolData.Entites;
 
 using SchoolServices.Interfaces;
@@ -13,7 +15,9 @@ namespace SchoolCore.Features.Students.Commands.Handlers
     public class StudentCommandHandler : ResponseHandler,
                                         IRequestHandler<AddStudentCommand, SchoolCore.Bases.Response<string>>,
                                         IRequestHandler<EditStudentCommand, SchoolCore.Bases.Response<string>>,
-                                        IRequestHandler<DeleteStudentCommand, SchoolCore.Bases.Response<string>>
+                                        IRequestHandler<DeleteStudentCommand, SchoolCore.Bases.Response<string>>,
+                                        IRequestHandler<GetStudentPaginatedListQuery, PaginatedResult<GetStudentPaginatedListResponse>>
+
 
 
     {
@@ -72,6 +76,11 @@ namespace SchoolCore.Features.Students.Commands.Handlers
 
             else return BadRequest<string>();
 
+        }
+
+        public Task<PaginatedResult<GetStudentPaginatedListResponse>> Handle(GetStudentPaginatedListQuery request, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }
